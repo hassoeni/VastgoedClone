@@ -59,7 +59,7 @@ export const VastgoedObjMutation = extendType({
 	// 1
 	type: 'Mutation',
 	definition(t) {
-		t.nonNull.field('post', {
+		t.nonNull.field('postpand', {
 			// 2
 			type: 'VastgoedObj',
 			args: {
@@ -74,10 +74,8 @@ export const VastgoedObjMutation = extendType({
 			},
 
 			resolve(parent, args, context) {
-				// const { description, url } = args // 4
-
-				let idCount = pandendummydata.length + 1 // 5
-				const link = {
+				let idCount = pandendummydata.length + 1 
+				const enkelpand = {
 					id: idCount,
 					naam: args.naam,
 					energielabel: args.energielabel,
@@ -87,8 +85,8 @@ export const VastgoedObjMutation = extendType({
 					adress: args.adress,
 					stad: args.stad,
 				}
-				pandendummydata.push(link)
-				return link
+				pandendummydata.push(enkelpand)
+				return enkelpand
 			},
 		})
 	},

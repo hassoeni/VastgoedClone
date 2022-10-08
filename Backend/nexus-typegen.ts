@@ -54,7 +54,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
-    post: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
+    postpand: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
   }
   Query: { // field return type
     vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
@@ -73,7 +73,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
-    post: 'VastgoedObj'
+    postpand: 'VastgoedObj'
   }
   Query: { // field return type name
     vastgoedgegevens: 'VastgoedObj'
@@ -92,7 +92,7 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
-    post: { // args
+    postpand: { // args
       adress: string; // String!
       energielabel: string; // String!
       gbo: number; // Int!

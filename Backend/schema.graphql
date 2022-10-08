@@ -3,7 +3,7 @@
 
 
 type Mutation {
-  post(adress: String!, energielabel: String!, gbo: Int!, marktwaarde: Int!, naam: String!, postcode: String!, stad: String!): VastgoedObj!
+  postpand(adress: String!, energielabel: String!, gbo: Int!, marktwaarde: Int!, naam: String!, postcode: String!, stad: String!): VastgoedObj!
 }
 
 type Query {
