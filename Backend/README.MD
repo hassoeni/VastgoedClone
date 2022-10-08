@@ -67,4 +67,29 @@ dit vult je VastgoedObj met data
       pandendummydata.push(enkelpand) return enkelpand    }
   })
 }})
-3. 
+3. test dit uit in je playground 
+
+<Prisma>
+1. installeer prisma en maak een Vastgoedobj model 
+2. maak een script.ts bestand in je src. Initializeer prisma client hier en maak een async main function en call je main function ook. 
+async function main() {
+    const allPanden = await prisma.vastgoedObj.findMany()
+    console.log(allPanden)
+}
+
+main()
+    .catch((e) => {
+        throw e 
+    })
+    .finally(async () => {
+        await prisma.$disconnect()
+    })
+3. run npx ts-node src/script.ts dit zal een empty object initialiseren 
+4. nu gaan we onze database van data voorzien.  maak een nieuwe variabel aan boven const allPanden genaam const nieuwPand  = await prisma.vastgoedobj.create({data: {naam: "dummy naam", stad: "stadsnaam" etc... }})
+5. maak een context.ts bestand aan. en importeer ook hier prisma client. Maak een nieuwe interface die je exporteert genaamd Context en stop hier prisma: PrismaClient  
+6. vervolgens exporteer je een variabel genaamd context waar je je Context in called met : en stop je ook hier prisma 
+7. tot slot voeg contextType toe aan schema.ts en zeg hier export: "Context" en module: join(process.cwd(), "./src/context.ts")
+en voeg het ook toe aan ApolloServer in index.ts met import {context} from "./Context" en dan onder export const server voeg je context toe 
+8. nu kan je prisma.alljeprismatabellen.alljeprismafuncties overal gebruiken 
+
+<>
