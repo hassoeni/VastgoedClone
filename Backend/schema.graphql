@@ -2,12 +2,26 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
 type Mutation {
+  login(email: String!, password: String!): AuthPayload!
   postpand(adress: String!, energielabel: String!, gbo: Int!, marktwaarde: Int!, naam: String!, postcode: String!, stad: String!): VastgoedObj!
+  signup(email: String!, name: String!, password: String!): AuthPayload!
 }
 
 type Query {
   vastgoedgegevens: [VastgoedObj]!
+}
+
+type User {
+  email: String!
+  gebruikerData: [VastgoedObj!]!
+  id: Int!
+  name: String!
 }
 
 type VastgoedObj {
@@ -18,5 +32,6 @@ type VastgoedObj {
   marktwaarde: Int!
   naam: String!
   postcode: String!
+  postedBy: User
   stad: String!
 }

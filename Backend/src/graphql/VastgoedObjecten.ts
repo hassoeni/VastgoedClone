@@ -14,9 +14,17 @@ export const VastgoedObj = objectType({
 		t.nonNull.string('postcode')
 		t.nonNull.string('adress')
 		t.nonNull.string('stad')
+		t.field('postedBy', {
+			type: 'User',
+			resolve(parent, args, context) {
+				// 2
+				return context.prisma.vastgoedObj
+					.findUnique({ where: { id: parent.id } })
+					.postedBy()
+			},
+		})
 	},
 })
-
 
 // feed = vastgoedgegevens
 export const VastgoedQuery = extendType({
@@ -24,7 +32,7 @@ export const VastgoedQuery = extendType({
 	definition(t) {
 		t.nonNull.list.field('vastgoedgegevens', {
 			type: 'VastgoedObj',
-			resolve(parent, args, context: Context) {
+			resolve(parent, args, context) {
 				return context.prisma.vastgoedObj.findMany()
 			},
 		})
@@ -48,8 +56,12 @@ export const VastgoedObjMutation = extendType({
 				stad: nonNull(stringArg()),
 			},
 
-			resolve(parent, args, context: Context) {
-
+			resolve(parent, args, context) {
+				const { userId } = context
+				if (!userId) {
+					// 1
+					throw new Error('Cannot post without logging in.')
+				}
 				const nieuwePand = context.prisma.vastgoedObj.create({
 					data: {
 						naam: args.naam,
@@ -59,6 +71,7 @@ export const VastgoedObjMutation = extendType({
 						postcode: args.postcode,
 						adress: args.adress,
 						stad: args.stad,
+						postedBy: { connect: { id: userId } },
 					},
 				})
 				return nieuwePand

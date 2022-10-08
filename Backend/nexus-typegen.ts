@@ -28,8 +28,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthPayload: { // root type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: {};
   Query: {};
+  User: { // root type
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
   VastgoedObj: { // root type
     adress: string; // String!
     energielabel: string; // String!
@@ -53,11 +62,23 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthPayload: { // field return type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: { // field return type
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     postpand: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
+    signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   Query: { // field return type
     vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
+  }
+  User: { // field return type
+    email: string; // String!
+    gebruikerData: NexusGenRootTypes['VastgoedObj'][]; // [VastgoedObj!]!
+    id: number; // Int!
+    name: string; // String!
   }
   VastgoedObj: { // field return type
     adress: string; // String!
@@ -67,16 +88,29 @@ export interface NexusGenFieldTypes {
     marktwaarde: number; // Int!
     naam: string; // String!
     postcode: string; // String!
+    postedBy: NexusGenRootTypes['User'] | null; // User
     stad: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthPayload: { // field return type name
+    token: 'String'
+    user: 'User'
+  }
   Mutation: { // field return type name
+    login: 'AuthPayload'
     postpand: 'VastgoedObj'
+    signup: 'AuthPayload'
   }
   Query: { // field return type name
     vastgoedgegevens: 'VastgoedObj'
+  }
+  User: { // field return type name
+    email: 'String'
+    gebruikerData: 'VastgoedObj'
+    id: 'Int'
+    name: 'String'
   }
   VastgoedObj: { // field return type name
     adress: 'String'
@@ -86,12 +120,17 @@ export interface NexusGenFieldTypeNames {
     marktwaarde: 'Int'
     naam: 'String'
     postcode: 'String'
+    postedBy: 'User'
     stad: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    login: { // args
+      email: string; // String!
+      password: string; // String!
+    }
     postpand: { // args
       adress: string; // String!
       energielabel: string; // String!
@@ -100,6 +139,11 @@ export interface NexusGenArgTypes {
       naam: string; // String!
       postcode: string; // String!
       stad: string; // String!
+    }
+    signup: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
   }
 }

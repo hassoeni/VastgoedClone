@@ -90,6 +90,8 @@ main()
 6. vervolgens exporteer je een variabel genaamd context waar je je Context in called met : en stop je ook hier prisma 
 7. tot slot voeg contextType toe aan schema.ts en zeg hier export: "Context" en module: join(process.cwd(), "./src/context.ts")
 en voeg het ook toe aan ApolloServer in index.ts met import {context} from "./Context" en dan onder export const server voeg je context toe 
-8. nu kan je prisma.alljeprismatabellen.alljeprismafuncties overal gebruiken 
+8. nu kan je prisma.alljeprismatabellen.alljeprismafuncties overal gebruiken vergeet niet bij context: Context te roepen in je queries en natuurlijk te importere n
 
-<>
+<Gebruikers toevoegen>
+1. Maak een gebruiker schema aan in prisma en verbind deze met je vastgoedobj 
+2. 
