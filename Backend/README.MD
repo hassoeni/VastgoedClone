@@ -41,3 +41,30 @@
 dit vult je VastgoedObj met data 
 3. definieer een VastgoedQuery met export const en extendType({type: "Query", definition(t){t.nonNull.list.field("naam van je extendedtype", {type:"wat extend je in dit geval VastgoedObj",, resolve(parent,args,context,info) return variabel die je hierboven hebt gedefinieerd})}})
 
+<Mutation in VastgoedObj>
+1. importeer eerst nonNull en stringArg uit nexus 
+2. defineer een export const VastgoedObjMutation = extendtype({type: "Mutation", defination(t) {
+  t.nonNull.field("naam van je mutatie", {
+    type: "naam van je object dat je wilt extenden dus VastgoedObj", 
+    args: {
+      naam: nonNull(stringArg()), 
+      energielabel:nonNull(stringArg()) , 
+      marktwaarde: nonNull(intArg()), 
+      gbo: nonNull(intArg()),
+      postcode etc,
+      adress etc,
+      stad etc
+    }, 
+
+    resolve (parent,args,context) {
+      const {desctructure all je bovenstaande variabelen} = args
+
+      let idCount = pandendummydata.length + 1 
+      const enkelpand = {
+        id: idCount,
+        alle andere variabelen : alle andere variabelen
+      }
+      pandendummydata.push(enkelpand) return enkelpand    }
+  })
+}})
+3. 

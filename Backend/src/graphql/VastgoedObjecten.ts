@@ -1,22 +1,22 @@
-import {objectType, extendType} from 'nexus'
+import { objectType, extendType, nonNull, stringArg, intArg } from 'nexus'
 import { NexusGenObjects } from '../../nexus-typegen'
 
-// LINK = VastgoedObj 
+// LINK = VastgoedObj
 export const VastgoedObj = objectType({
-    name: "VastgoedObj",
-    definition(t) {
-        t.nonNull.int("id")
-        t.nonNull.string("naam")
-        t.nonNull.string("energielabel")
-        t.nonNull.int("marktwaarde")
-        t.nonNull.int("gbo")
-        t.nonNull.string("postcode")
-        t.nonNull.string("adress")
-        t.nonNull.string("stad")
-    },
+	name: 'VastgoedObj',
+	definition(t) {
+		t.nonNull.int('id')
+		t.nonNull.string('naam')
+		t.nonNull.string('energielabel')
+		t.nonNull.int('marktwaarde')
+		t.nonNull.int('gbo')
+		t.nonNull.string('postcode')
+		t.nonNull.string('adress')
+		t.nonNull.string('stad')
+	},
 })
 
-// links === panden 
+// links === pandendummydata
 let pandendummydata: NexusGenObjects['VastgoedObj'][] = [
 	{
 		id: 1,
@@ -29,7 +29,7 @@ let pandendummydata: NexusGenObjects['VastgoedObj'][] = [
 		stad: 'Rotterdam',
 	},
 	{
-		id: 1,
+		id: 2,
 		naam: 'De Lampendriessen 31',
 		energielabel: 'B',
 		marktwaarde: 75000,
@@ -42,13 +42,54 @@ let pandendummydata: NexusGenObjects['VastgoedObj'][] = [
 
 // feed = vastgoedgegevens
 export const VastgoedQuery = extendType({
-    type: "Query", 
-    definition(t) {
-        t.nonNull.list.field("vastgoedgegevens", {
-            type: "VastgoedObj", 
-            resolve(parent, args, info, context) {
-                return pandendummydata
-            }
-        })
-    },
+	type: 'Query',
+	definition(t) {
+		t.nonNull.list.field('vastgoedgegevens', {
+			type: 'VastgoedObj',
+			resolve(parent, args, info, context) {
+				return pandendummydata
+			},
+		})
+	},
+})
+
+// LinkMutation = VastgoedObjMutation
+// post = postpand
+export const VastgoedObjMutation = extendType({
+	// 1
+	type: 'Mutation',
+	definition(t) {
+		t.nonNull.field('post', {
+			// 2
+			type: 'VastgoedObj',
+			args: {
+				// 3
+				naam: nonNull(stringArg()),
+				marktwaarde: nonNull(intArg()),
+				gbo: nonNull(intArg()),
+				energielabel: nonNull(stringArg()),
+				postcode: nonNull(stringArg()),
+				adress: nonNull(stringArg()),
+				stad: nonNull(stringArg()),
+			},
+
+			resolve(parent, args, context) {
+				// const { description, url } = args // 4
+
+				let idCount = pandendummydata.length + 1 // 5
+				const link = {
+					id: idCount,
+					naam: args.naam,
+					energielabel: args.energielabel,
+					marktwaarde: args.marktwaarde,
+					gbo: args.gbo,
+					postcode: args.postcode,
+					adress: args.adress,
+					stad: args.stad,
+				}
+				pandendummydata.push(link)
+				return link
+			},
+		})
+	},
 })

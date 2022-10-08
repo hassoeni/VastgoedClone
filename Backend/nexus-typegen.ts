@@ -28,6 +28,7 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
   VastgoedObj: { // root type
     adress: string; // String!
@@ -52,6 +53,9 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    post: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
+  }
   Query: { // field return type
     vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
   }
@@ -68,6 +72,9 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    post: 'VastgoedObj'
+  }
   Query: { // field return type name
     vastgoedgegevens: 'VastgoedObj'
   }
@@ -84,6 +91,17 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    post: { // args
+      adress: string; // String!
+      energielabel: string; // String!
+      gbo: number; // Int!
+      marktwaarde: number; // Int!
+      naam: string; // String!
+      postcode: string; // String!
+      stad: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
