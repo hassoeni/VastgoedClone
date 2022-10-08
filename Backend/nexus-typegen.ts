@@ -29,6 +29,15 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Query: {};
+  VastgoedObj: { // root type
+    adress: string; // String!
+    energielabel: string; // String!
+    gbo: number; // Int!
+    id: number; // Int!
+    marktwaarde: number; // Int!
+    naam: string; // String!
+    postcode: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -45,11 +54,29 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     ok: boolean; // Boolean!
   }
+  VastgoedObj: { // field return type
+    adress: string; // String!
+    energielabel: string; // String!
+    gbo: number; // Int!
+    id: number; // Int!
+    marktwaarde: number; // Int!
+    naam: string; // String!
+    postcode: string; // String!
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     ok: 'Boolean'
+  }
+  VastgoedObj: { // field return type name
+    adress: 'String'
+    energielabel: 'String'
+    gbo: 'Int'
+    id: 'Int'
+    marktwaarde: 'Int'
+    naam: 'String'
+    postcode: 'String'
   }
 }
 

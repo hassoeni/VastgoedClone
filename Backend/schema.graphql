@@ -5,3 +5,13 @@
 type Query {
   ok: Boolean!
 }
+
+type VastgoedObj {
+  adress: String!
+  energielabel: String!
+  gbo: Int!
+  id: Int!
+  marktwaarde: Int!
+  naam: String!
+  postcode: String!
+}
