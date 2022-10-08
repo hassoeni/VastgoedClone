@@ -37,6 +37,7 @@ export interface NexusGenObjects {
     marktwaarde: number; // Int!
     naam: string; // String!
     postcode: string; // String!
+    stad: string; // String!
   }
 }
 
@@ -52,7 +53,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    ok: boolean; // Boolean!
+    vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
   }
   VastgoedObj: { // field return type
     adress: string; // String!
@@ -62,12 +63,13 @@ export interface NexusGenFieldTypes {
     marktwaarde: number; // Int!
     naam: string; // String!
     postcode: string; // String!
+    stad: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    ok: 'Boolean'
+    vastgoedgegevens: 'VastgoedObj'
   }
   VastgoedObj: { // field return type name
     adress: 'String'
@@ -77,6 +79,7 @@ export interface NexusGenFieldTypeNames {
     marktwaarde: 'Int'
     naam: 'String'
     postcode: 'String'
+    stad: 'String'
   }
 }
 

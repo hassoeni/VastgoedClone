@@ -3,7 +3,7 @@
 
 
 type Query {
-  ok: Boolean!
+  vastgoedgegevens: [VastgoedObj]!
 }
 
 type VastgoedObj {
@@ -14,4 +14,5 @@ type VastgoedObj {
   marktwaarde: Int!
   naam: String!
   postcode: String!
+  stad: String!
 }
