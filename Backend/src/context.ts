@@ -1,14 +1,11 @@
-// dit bestand verbind prisma met Apollo Server 
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
+export interface Context {
+	prisma: PrismaClient
+}
 
 const prisma = new PrismaClient()
 
-
-export interface Context {
-    prisma: PrismaClient
-}
-
 export const context: Context = {
-     prisma, 
+	prisma: prisma,
 }

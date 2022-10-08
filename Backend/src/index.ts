@@ -4,8 +4,8 @@ import {schema} from './schema'
 import { context } from "./context";
 
 export const server = new ApolloServer({
-	schema, // dit geeft onze schema object door aan onze server
-	context, // nu kunnen we prisma overal gebruiken
+	schema: schema, // dit geeft onze schema object door aan onze server
+	context: context, // nu kunnen we prisma overal gebruiken
 	plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 })
 
