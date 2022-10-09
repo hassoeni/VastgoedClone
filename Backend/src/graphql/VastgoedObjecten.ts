@@ -1,6 +1,4 @@
-import { objectType, extendType, nonNull, stringArg, intArg } from 'nexus'
-import { NexusGenObjects } from '../../nexus-typegen'
-import { Context } from '../context'
+import { objectType, extendType, nonNull, stringArg, intArg} from 'nexus'
 
 // LINK = VastgoedObj
 export const VastgoedObj = objectType({
@@ -14,6 +12,9 @@ export const VastgoedObj = objectType({
 		t.nonNull.string('postcode')
 		t.nonNull.string('adress')
 		t.nonNull.string('stad')
+		t.nonNull.dateTime('createdAt')
+		t.nonNull.dateTime('updatedAt')
+		// t.nonNull.dateTime("updatedAt")
 		t.field('postedBy', {
 			type: 'User',
 			resolve(parent, args, context) {
@@ -44,6 +45,8 @@ export const VastgoedQuery = extendType({
 export const VastgoedObjMutation = extendType({
 	type: 'Mutation',
 	definition(t) {
+
+		// adds record 
 		t.nonNull.field('postpand', {
 			type: 'VastgoedObj',
 			args: {
@@ -77,5 +80,49 @@ export const VastgoedObjMutation = extendType({
 				return nieuwePand
 			},
 		})
+
+
+		// delete record 
+		t.field('deleteRecord', {
+			type: "VastgoedObj", 
+			args: {
+				id: nonNull(intArg())
+			},
+			resolve: (_,args, context) => {
+				return context.prisma.vastgoedObj.delete({
+					where: {id: args.id}
+				})
+			}
+		})
+
+		// updates record 
+		t.field('updaterecord', {
+			type: "VastgoedObj", 
+			args: {
+				id: nonNull(intArg()),
+				naam: nonNull(stringArg()),
+				marktwaarde: nonNull(intArg()),
+				gbo: nonNull(intArg()),
+				energielabel: nonNull(stringArg()),
+				postcode: nonNull(stringArg()),
+				adress: nonNull(stringArg()),
+				stad: nonNull(stringArg()),
+			}, 
+			resolve: (_,args, context) => {
+				return context.prisma.vastgoedObj.update({
+					where: { id: args.id },
+					data: {
+						naam: args.naam,
+						energielabel: args.energielabel,
+						marktwaarde: args.marktwaarde,
+						gbo: args.gbo,
+						postcode: args.postcode,
+						adress: args.adress,
+						stad: args.stad,
+					},
+				})
+			}
+		})
+
 	},
 })

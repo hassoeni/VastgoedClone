@@ -5,8 +5,23 @@
 
 
 import type { Context } from "./src/context"
-
-
+import type { core } from "nexus"
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    dateTime<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    dateTime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+  }
+}
 
 
 declare global {
@@ -25,6 +40,7 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: any
 }
 
 export interface NexusGenObjects {
@@ -41,6 +57,7 @@ export interface NexusGenObjects {
   }
   VastgoedObj: { // root type
     adress: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     energielabel: string; // String!
     gbo: number; // Int!
     id: number; // Int!
@@ -48,6 +65,7 @@ export interface NexusGenObjects {
     naam: string; // String!
     postcode: string; // String!
     stad: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -67,9 +85,11 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
+    deleteRecord: NexusGenRootTypes['VastgoedObj'] | null; // VastgoedObj
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     postpand: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    updaterecord: NexusGenRootTypes['VastgoedObj'] | null; // VastgoedObj
   }
   Query: { // field return type
     vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
@@ -82,6 +102,7 @@ export interface NexusGenFieldTypes {
   }
   VastgoedObj: { // field return type
     adress: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     energielabel: string; // String!
     gbo: number; // Int!
     id: number; // Int!
@@ -90,6 +111,7 @@ export interface NexusGenFieldTypes {
     postcode: string; // String!
     postedBy: NexusGenRootTypes['User'] | null; // User
     stad: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -99,9 +121,11 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Mutation: { // field return type name
+    deleteRecord: 'VastgoedObj'
     login: 'AuthPayload'
     postpand: 'VastgoedObj'
     signup: 'AuthPayload'
+    updaterecord: 'VastgoedObj'
   }
   Query: { // field return type name
     vastgoedgegevens: 'VastgoedObj'
@@ -114,6 +138,7 @@ export interface NexusGenFieldTypeNames {
   }
   VastgoedObj: { // field return type name
     adress: 'String'
+    createdAt: 'DateTime'
     energielabel: 'String'
     gbo: 'Int'
     id: 'Int'
@@ -122,11 +147,15 @@ export interface NexusGenFieldTypeNames {
     postcode: 'String'
     postedBy: 'User'
     stad: 'String'
+    updatedAt: 'DateTime'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    deleteRecord: { // args
+      id: number; // Int!
+    }
     login: { // args
       email: string; // String!
       password: string; // String!
@@ -144,6 +173,16 @@ export interface NexusGenArgTypes {
       email: string; // String!
       name: string; // String!
       password: string; // String!
+    }
+    updaterecord: { // args
+      adress: string; // String!
+      energielabel: string; // String!
+      gbo: number; // Int!
+      id: number; // Int!
+      marktwaarde: number; // Int!
+      naam: string; // String!
+      postcode: string; // String!
+      stad: string; // String!
     }
   }
 }
