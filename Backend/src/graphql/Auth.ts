@@ -59,6 +59,8 @@ export const AuthMutation = extendType({
 				email: nonNull(stringArg()),
 				password: nonNull(stringArg()),
 				name: nonNull(stringArg()),
+
+				// optional stringArg for profile picture
 			},
 			async resolve(parent, args, context) {
 				const { email, name } = args

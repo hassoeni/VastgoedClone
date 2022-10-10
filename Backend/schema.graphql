@@ -12,12 +12,23 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Elementen {
+  eenheidtype: String!
+  elementGegevens: [VastgoedObj!]!
+  hecode: Int!
+  heprijspereenheid: Float!
+  hoofdelementnaam: String!
+  id: Int!
+  omschrijving: String!
+}
+
 type Mutation {
   deleteRecord(id: Int!): VastgoedObj
   login(email: String!, password: String!): AuthPayload!
   postpand(adress: String!, energielabel: String!, gbo: Int!, marktwaarde: Int!, naam: String!, postcode: String!, stad: String!): VastgoedObj!
   signup(email: String!, name: String!, password: String!): AuthPayload!
   updaterecord(adress: String!, energielabel: String!, gbo: Int!, id: Int!, marktwaarde: Int!, naam: String!, postcode: String!, stad: String!): VastgoedObj
+  voegelementtoe(eenheidtype: String!, hecode: Int!, heprijspereenheid: Float!, hoofdelementnaam: String!, omschrijving: String!): Elementen!
 }
 
 type Query {
@@ -34,6 +45,7 @@ type User {
 type VastgoedObj {
   adress: String!
   createdAt: DateTime!
+  elementlijst: Elementen
   energielabel: String!
   gbo: Int!
   id: Int!

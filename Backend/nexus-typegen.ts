@@ -48,6 +48,14 @@ export interface NexusGenObjects {
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Elementen: { // root type
+    eenheidtype: string; // String!
+    hecode: number; // Int!
+    heprijspereenheid: number; // Float!
+    hoofdelementnaam: string; // String!
+    id: number; // Int!
+    omschrijving: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
@@ -84,12 +92,22 @@ export interface NexusGenFieldTypes {
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Elementen: { // field return type
+    eenheidtype: string; // String!
+    elementGegevens: NexusGenRootTypes['VastgoedObj'][]; // [VastgoedObj!]!
+    hecode: number; // Int!
+    heprijspereenheid: number; // Float!
+    hoofdelementnaam: string; // String!
+    id: number; // Int!
+    omschrijving: string; // String!
+  }
   Mutation: { // field return type
     deleteRecord: NexusGenRootTypes['VastgoedObj'] | null; // VastgoedObj
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     postpand: NexusGenRootTypes['VastgoedObj']; // VastgoedObj!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updaterecord: NexusGenRootTypes['VastgoedObj'] | null; // VastgoedObj
+    voegelementtoe: NexusGenRootTypes['Elementen']; // Elementen!
   }
   Query: { // field return type
     vastgoedgegevens: Array<NexusGenRootTypes['VastgoedObj'] | null>; // [VastgoedObj]!
@@ -103,6 +121,7 @@ export interface NexusGenFieldTypes {
   VastgoedObj: { // field return type
     adress: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    elementlijst: NexusGenRootTypes['Elementen'] | null; // Elementen
     energielabel: string; // String!
     gbo: number; // Int!
     id: number; // Int!
@@ -120,12 +139,22 @@ export interface NexusGenFieldTypeNames {
     token: 'String'
     user: 'User'
   }
+  Elementen: { // field return type name
+    eenheidtype: 'String'
+    elementGegevens: 'VastgoedObj'
+    hecode: 'Int'
+    heprijspereenheid: 'Float'
+    hoofdelementnaam: 'String'
+    id: 'Int'
+    omschrijving: 'String'
+  }
   Mutation: { // field return type name
     deleteRecord: 'VastgoedObj'
     login: 'AuthPayload'
     postpand: 'VastgoedObj'
     signup: 'AuthPayload'
     updaterecord: 'VastgoedObj'
+    voegelementtoe: 'Elementen'
   }
   Query: { // field return type name
     vastgoedgegevens: 'VastgoedObj'
@@ -139,6 +168,7 @@ export interface NexusGenFieldTypeNames {
   VastgoedObj: { // field return type name
     adress: 'String'
     createdAt: 'DateTime'
+    elementlijst: 'Elementen'
     energielabel: 'String'
     gbo: 'Int'
     id: 'Int'
@@ -183,6 +213,13 @@ export interface NexusGenArgTypes {
       naam: string; // String!
       postcode: string; // String!
       stad: string; // String!
+    }
+    voegelementtoe: { // args
+      eenheidtype: string; // String!
+      hecode: number; // Int!
+      heprijspereenheid: number; // Float!
+      hoofdelementnaam: string; // String!
+      omschrijving: string; // String!
     }
   }
 }

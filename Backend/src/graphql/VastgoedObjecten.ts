@@ -24,6 +24,16 @@ export const VastgoedObj = objectType({
 					.postedBy()
 			},
 		})
+		t.field('elementlijst', {
+			type: 'Elementen',
+			resolve(parent, args, context) {
+				// 2
+				return context.prisma.vastgoedObj
+					.findUnique({ where: { id: parent.id } })
+					.elementlijst()
+			},
+		})
+		
 	},
 })
 
@@ -75,6 +85,8 @@ export const VastgoedObjMutation = extendType({
 						adress: args.adress,
 						stad: args.stad,
 						postedBy: { connect: { id: userId } },
+						// verbind met element tabel
+						// elementlijst: { connect: {id: parent}}
 					},
 				})
 				return nieuwePand

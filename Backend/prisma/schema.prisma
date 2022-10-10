@@ -8,10 +8,9 @@ datasource db {
 }
 
 model VastgoedObj {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  naam         String   @unique
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  naam         String     @unique
   energielabel String
   marktwaarde  Int
   gbo          Int
@@ -19,7 +18,10 @@ model VastgoedObj {
   adress       String
   stad         String
   postedById   Int?
-  postedBy     User?    @relation(fields: [postedById], references: [id])
+  updatedAt    DateTime   @updatedAt
+  elementid    Int?
+  elementlijst Elementen? @relation(fields: [elementid], references: [id])
+  postedBy     User?      @relation(fields: [postedById], references: [id])
 }
 
 model User {
@@ -28,4 +30,14 @@ model User {
   email    String        @unique
   password String
   panden   VastgoedObj[]
+}
+
+model Elementen {
+  id                Int           @id @default(autoincrement())
+  hoofdelementnaam  String        @unique
+  omschrijving      String
+  hecode            Int
+  heprijspereenheid Float
+  eenheidtype       String
+  objecten          VastgoedObj[]
 }
